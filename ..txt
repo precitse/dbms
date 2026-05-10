@@ -1,0 +1,689 @@
+Practical No. 1
+Perform the following operations on the database:
+•	ALTER TABLE
+•	Pattern Matching using LIKE, IN, BETWEEN
+•	Sorting
+
+SQL Program
+
+-- Create STUDENT table
+
+
+CREATE TABLE STUDENT (
+RollNo NUMBER, Name VARCHAR2(20), City VARCHAR2(20),
+Marks NUMBER
+);
+
+-- Insert Records
+
+
+INSERT INTO STUDENT VALUES (1, 'Amit', 'Pune', 85); INSERT INTO STUDENT VALUES (2, 'Sneha', 'Mumbai', 92); INSERT INTO STUDENT VALUES (3, 'Rahul', 'Nashik', 70); INSERT INTO STUDENT VALUES (4, 'Priya', 'Pune', 88);
+
+-- ALTER TABLE
+
+
+ALTER TABLE STUDENT
+ADD Email VARCHAR2(30);
+
+-- LIKE Operator
+
+
+SELECT * FROM STUDENT WHERE Name LIKE 'A%';
+
+-- IN Operator
+
+
+SELECT * FROM STUDENT
+WHERE City IN ('Pune', 'Mumbai');
+
+-- BETWEEN Operator
+
+ 
+SELECT * FROM STUDENT
+WHERE Marks BETWEEN 70 AND 90;
+
+-- SORTING
+
+
+-- Ascending Order SELECT * FROM STUDENT ORDER BY Marks ASC;
+
+-- Descending Order SELECT * FROM STUDENT ORDER BY Marks DESC;
+
+Short Viva Questions
+1.	What is ALTER TABLE?
+ALTER TABLE is used to modify structure of existing table.
+
+
+2.	What is LIKE operator?
+LIKE is used for pattern matching. Example:
+WHERE Name LIKE 'A%'
+
+Names starting with A.
+
+
+3.	What is IN operator?
+IN is used to check multiple values. Example:
+WHERE City IN ('Pune', 'Mumbai')
+
+4.	What is BETWEEN operator?
+BETWEEN is used to select values within range.
+ 
+Example:
+
+WHERE Marks BETWEEN 70 AND 90
+
+5.	What is Sorting?
+Sorting means arranging data in ascending or descending order using ORDER BY.
+
+
+
+
+
+
+Practical No. 2
+Perform the following operations on the database:
+•	Relational Operations (=, <, >, <=, >=, AND, OR)
+•	Nested Queries
+•	DROP TABLE
+
+SQL Program
+
+-- Create STUDENT table
+
+
+CREATE TABLE STUDENT (
+RollNo NUMBER, Name VARCHAR2(20), City VARCHAR2(20),
+Marks NUMBER
+);
+
+-- Insert Records
+
+
+INSERT INTO STUDENT VALUES (1, 'Amit', 'Pune', 85); INSERT INTO STUDENT VALUES (2, 'Sneha', 'Mumbai', 92); INSERT INTO STUDENT VALUES (3, 'Rahul', 'Nashik', 70); INSERT INTO STUDENT VALUES (4, 'Priya', 'Pune', 88);
+
+-- Relational Operations
+
+
+-- Equal (=)
+ 
+SELECT * FROM STUDENT
+WHERE City = 'Pune';
+
+-- Greater Than (>) SELECT * FROM STUDENT WHERE Marks > 80;
+
+-- Less Than (<) SELECT * FROM STUDENT WHERE Marks < 90;
+-- Greater Than Equal To (>=) SELECT * FROM STUDENT
+WHERE Marks >= 85;
+
+-- Less Than Equal To (<=) SELECT * FROM STUDENT WHERE Marks <= 70;
+
+-- AND Operator SELECT * FROM STUDENT
+WHERE City = 'Pune' AND Marks > 80;
+
+-- OR Operator
+SELECT * FROM STUDENT
+WHERE City = 'Mumbai' OR Marks > 90;
+
+-- Nested Query
+
+
+SELECT Name, Marks FROM STUDENT
+WHERE Marks = ( SELECT MAX(Marks) FROM STUDENT
+);
+
+-- DROP TABLE
+
+
+DROP TABLE STUDENT;
+
+Short Viva Questions
+1.	What is Relational Operator?
+Relational operators are used to compare values in SQL.
+
+
+2.	What is Nested Query?
+A query written inside another query is called Nested Query.
+ 
+3.	What is DROP TABLE?
+DROP TABLE is used to permanently delete a table from database.
+
+
+4.	Difference between DELETE and DROP?
+
+DELETE	DROP
+Deletes records	Deletes complete table
+Table remains	Table removed permanently
+
+5.	Which operator is used for multiple conditions?
+AND and OR operators are used for multiple conditions.
+
+
+
+
+
+
+
+
+Practical No. 3 – SQL Aggregate Functions, GROUP BY, HAVING & Nested Queries
+1)	Create Table
+CREATE TABLE Employee ( EmpID INT PRIMARY KEY, Name VARCHAR(50),
+Department VARCHAR(30), Salary INT,
+City VARCHAR(30)
+);
+
+2)	Insert Records
+INSERT INTO Employee VALUES
+(1, 'Aashish', 'IT', 50000, 'Aurangabad'),
+(2, 'Rahul', 'HR', 35000, 'Pune'),
+(3, 'Sneha', 'IT', 60000, 'Mumbai'),
+(4, 'Priya', 'Sales', 40000, 'Nashik'),
+ 
+(5, 'Rohan', 'HR', 30000, 'Pune'),
+(6, 'Neha', 'IT', 70000, 'Mumbai');
+
+Aggregate Functions
+COUNT()
+SELECT COUNT(*) AS Total_Employees FROM Employee;
+
+SUM()
+SELECT SUM(Salary) AS Total_Salary FROM Employee;
+
+AVG()
+SELECT AVG(Salary) AS Average_Salary FROM Employee;
+
+MAX()
+SELECT MAX(Salary) AS Highest_Salary FROM Employee;
+
+MIN()
+SELECT MIN(Salary) AS Lowest_Salary FROM Employee;
+
+GROUP BY Clause
+Department Wise Total Salary
+SELECT Department, SUM(Salary) AS Total_Salary FROM Employee
+GROUP BY Department;
+
+Department Wise Average Salary
+ 
+SELECT Department, AVG(Salary) AS Average_Salary FROM Employee
+GROUP BY Department;
+
+HAVING Clause
+Departments Having Average Salary Greater Than 40000
+SELECT Department, AVG(Salary) AS Average_Salary FROM Employee
+GROUP BY Department
+HAVING AVG(Salary) > 40000;
+
+Nested Queries
+Employee Having Maximum Salary
+SELECT * FROM Employee WHERE Salary = (
+SELECT MAX(Salary) FROM Employee
+);
+
+Employees Working in Same Department as Rahul
+SELECT * FROM Employee WHERE Department = (
+SELECT Department FROM Employee WHERE Name = 'Rahul'
+);
+
+OR – PL/SQL Stored Procedure Example
+DELIMITER //
+
+CREATE PROCEDURE GetEmployee() BEGIN
+SELECT * FROM Employee; END //
+DELIMITER ;
+
+Execute Procedure
+CALL GetEmployee();
+ 
+Viva Questions (Marathi + English Mix)
+1.	Aggregate function mhanje kay?
+→ Multiple rows var calculation karte.
+2.	COUNT() cha use kay?
+→ Total records count karto.
+3.	GROUP BY use ka karto?
+→ Same data group karayla.
+4.	HAVING and WHERE madhe difference?
+→ WHERE row filter karto, HAVING groups filter karto.
+5.	Nested query mhanje kay?
+→ Query inside another query.
+6.	Stored Procedure kay aahe?
+→ Precompiled SQL statements cha group.
+
+
+
+
+
+Practical No. 4
+Perform the following operations on the database:
+•	Create and Drop Views (CREATE VIEW, DROP VIEW)
+•	Sorting
+
+SQL Program
+
+-- Create STUDENT table
+
+
+CREATE TABLE STUDENT (
+RollNo NUMBER, Name VARCHAR2(20), City VARCHAR2(20),
+Marks NUMBER
+);
+
+-- Insert Records
+
+
+INSERT INTO STUDENT VALUES (1, 'Amit', 'Pune', 85); INSERT INTO STUDENT VALUES (2, 'Sneha', 'Mumbai', 92); INSERT INTO STUDENT VALUES (3, 'Rahul', 'Nashik', 70);
+INSERT INTO STUDENT VALUES (4, 'Priya', 'Aurangabad', 88);
+ 
+ 
+-- Display Table
+
+
+SELECT * FROM STUDENT;
+
+-- CREATE VIEW
+
+
+CREATE VIEW STUDENT_VIEW AS
+SELECT RollNo, Name, Marks FROM STUDENT;
+
+-- Display View
+
+
+SELECT * FROM STUDENT_VIEW;
+
+-- SORTING
+
+
+-- Ascending Order SELECT * FROM STUDENT ORDER BY Marks ASC;
+-- Descending Order SELECT * FROM STUDENT ORDER BY Marks DESC;
+
+-- DROP VIEW
+
+
+DROP VIEW STUDENT_VIEW;
+
+Expected Output
+STUDENT_VIEW
+
+RollNo	Name	Marks
+1	Amit	85
+2	Sneha	92
+3	Rahul	70
+4	Priya	88
+ 
+Short Viva Questions
+1.	What is View?
+View is a virtual table created from one or more tables.
+
+
+2.	Which command is used to create view?
+CREATE VIEW
+
+
+3.	Which command is used to remove view?
+DROP VIEW
+
+
+4.	What is Sorting?
+Sorting means arranging records in ascending or descending order.
+
+
+5.	Which clause is used for sorting?
+ORDER BY clause is used for sorting.
+
+
+
+
+
+
+05 Practical
+Create Tables with:
+•	Primary Key
+•	Foreign Key
+
+SQL Program
+ 
+ 
+-- Create DEPARTMENT table
+
+
+CREATE TABLE DEPARTMENT ( Dept_ID NUMBER PRIMARY KEY,
+Dept_Name VARCHAR2(20)
+);
+
+-- Create STUDENT table
+
+
+CREATE TABLE STUDENT (
+RollNo NUMBER PRIMARY KEY, Name VARCHAR2(20),
+City VARCHAR2(20), Dept_ID NUMBER,
+CONSTRAINT FK_DEPT FOREIGN KEY (Dept_ID)
+REFERENCES DEPARTMENT(Dept_ID)
+);
+
+-- Insert records into DEPARTMENT
+
+
+INSERT INTO DEPARTMENT VALUES (101, 'Computer'); INSERT INTO DEPARTMENT VALUES (102, 'IT');
+INSERT INTO DEPARTMENT VALUES (103, 'Mechanical');
+
+-- Insert records into STUDENT
+
+
+INSERT INTO STUDENT VALUES (1, 'Amit', 'Pune', 101); INSERT INTO STUDENT VALUES (2, 'Sneha', 'Mumbai', 102); INSERT INTO STUDENT VALUES (3, 'Rahul', 'Nashik', 101);
+
+-- Display tables
+
+
+SELECT * FROM DEPARTMENT; SELECT * FROM STUDENT;
+
+
+
+Practical No. 6
+Create tables using the following constraints:
+•	UNIQUE
+•	DEFAULT
+ 
+•	PRIMARY KEY
+•	CHECK
+•	NOT NULL
+
+SQL Program
+
+-- Create EMPLOYEE table with Constraints
+
+
+CREATE TABLE EMPLOYEE (
+
+Emp_ID NUMBER PRIMARY KEY, Name VARCHAR2(20) NOT NULL, Email VARCHAR2(30) UNIQUE, Salary NUMBER DEFAULT 5000,
+Age NUMBER CHECK (Age >= 18)
+);
+
+-- Insert Records
+
+
+INSERT INTO EMPLOYEE
+VALUES (1, 'Amit', 'amit@gmail.com', 15000, 22);
+
+INSERT INTO EMPLOYEE
+VALUES (2, 'Sneha', 'sneha@gmail.com', DEFAULT, 25);
+
+-- Display Table
+
+
+SELECT * FROM EMPLOYEE;
+
+Constraint Explanation
+
+Constraint	Meaning
+PRIMARY KEY	Unique + Not Null
+NOT NULL	Value cannot be empty
+UNIQUE	Duplicate values not allowed
+ 
+Constraint	Meaning
+DEFAULT	Default value automatically inserted
+CHECK	Checks condition before inserting
+
+Expected Output
+
+Emp_ID	Name	Email	Salary	Age
+1	Amit	amit@gmail.com
+15000	22
+2	Sneha	sneha@gmail.com
+5000	25
+
+Short Viva Questions
+1.	What is PRIMARY KEY?
+Primary Key uniquely identifies each record.
+
+
+2.	What is UNIQUE constraint?
+UNIQUE does not allow duplicate values.
+
+
+3.	What is DEFAULT constraint?
+DEFAULT automatically inserts default value if no value is given.
+
+
+4.	What is CHECK constraint?
+CHECK validates condition before inserting data.
+ 
+5.	What is NOT NULL?
+NOT NULL does not allow empty values.
+
+
+Practical No. 7
+Create the database and required tables using DDL statements:
+•	CREATE
+•	ALTER
+•	DROP
+
+Perform DML operations using:
+•	INSERT
+•	UPDATE
+•	DELETE
+
+SQL Program
+
+-- CREATE TABLE
+
+
+CREATE TABLE STUDENT (
+RollNo NUMBER, Name VARCHAR2(20),
+Marks NUMBER
+);
+
+-- ALTER TABLE
+
+
+ALTER TABLE STUDENT ADD City VARCHAR2(20);
+
+-- INSERT Records
+ 
+ 
+
+INSERT INTO STUDENT
+VALUES (1, 'Amit', 85, 'Pune');
+
+INSERT INTO STUDENT
+VALUES (2, 'Sneha', 90, 'Mumbai');
+
+INSERT INTO STUDENT
+VALUES (3, 'Rahul', 75, 'Nashik');
+
+-- Display Table
+
+
+SELECT * FROM STUDENT;
+
+-- UPDATE Record
+
+
+UPDATE STUDENT
+SET Marks = 95 WHERE RollNo = 2;
+
+-- DELETE Record
+
+
+DELETE FROM STUDENT WHERE RollNo = 3;
+
+-- Display Updated Table
+
+
+SELECT * FROM STUDENT;
+
+-- DROP TABLE
+
+
+DROP TABLE STUDENT;
+
+DDL and DML Explanation
+
+Type	Commands
+DDL (Data Definition Language)	CREATE, ALTER, DROP
+DML (Data Manipulation Language)	INSERT, UPDATE, DELETE
+ 
+Expected Output
+Before UPDATE and DELETE
+
+RollNo	Name	Marks	City
+1	Amit	85	Pune
+2	Sneha	90	Mumbai
+3	Rahul	75	Nashik
+
+
+After UPDATE and DELETE
+
+RollNo	Name	Marks	City
+1	Amit	85	Pune
+2	Sneha	95	Mumbai
+
+
+Short Viva Questions
+1.	What is DDL?
+DDL is used to define database structure.
+
+
+2.	What is DML?
+DML is used to manipulate data in tables.
+
+
+3.	Which command is used to add column?
+ALTER TABLE
+ 
+4.	Which command is used to change data?
+UPDATE
+
+
+5.	Which command deletes records?
+DELETE command deletes records from table.
+
+
+
+
+Practical No. 8
+Perform the following operations on the database:
+a.	SET Operations
+•	UNION
+•	UNION ALL
+•	INTERSECT
+•	MINUS
+
+b.	ALTER TABLE Operations
+
+SQL Program
+
+-- Create Tables
+
+
+CREATE TABLE STUDENT_A ( Name VARCHAR2(20)
+);
+CREATE TABLE STUDENT_B ( Name VARCHAR2(20)
+);
+
+-- Insert Records
+
+
+INSERT INTO STUDENT_A VALUES ('Amit'); INSERT INTO STUDENT_A VALUES ('Sneha'); INSERT INTO STUDENT_A VALUES ('Rahul');
+ 
+INSERT INTO STUDENT_B VALUES ('Sneha'); INSERT INTO STUDENT_B VALUES ('Priya'); INSERT INTO STUDENT_B VALUES ('Rahul');
+
+-- UNION
+
+
+SELECT Name FROM STUDENT_A UNION
+SELECT Name FROM STUDENT_B;
+
+-- UNION ALL
+
+
+SELECT Name FROM STUDENT_A UNION ALL
+SELECT Name FROM STUDENT_B;
+
+-- INTERSECT
+
+
+SELECT Name FROM STUDENT_A INTERSECT
+SELECT Name FROM STUDENT_B;
+
+-- MINUS
+
+
+SELECT Name FROM STUDENT_A MINUS
+SELECT Name FROM STUDENT_B;
+
+-- ALTER TABLE Operations
+
+
+-- Add Column
+ALTER TABLE STUDENT_A ADD City VARCHAR2(20);
+
+-- Modify Column ALTER TABLE STUDENT_A
+MODIFY City VARCHAR2(30);
+
+-- Drop Column
+ALTER TABLE STUDENT_A DROP COLUMN City;
+
+Output Example
+UNION
+ 
+Name
+Amit
+Sneha
+Rahul
+Priya
+
+
+(Removes duplicate values)
+
+
+UNION ALL
+
+Name
+Amit
+Sneha
+Rahul
+Sneha
+Priya
+Rahul
+
+(Displays duplicates also)
+
+
+INTERSECT
+
+Name
+Sneha
+Rahul
+
+(Common values)
+ 
+MINUS
+
+Name
+Amit
+
+(Values present in STUDENT_A but not in STUDENT_B)
+
+Short Viva Questions
+1.	What is UNION?
+UNION combines records and removes duplicates.
+
+
+2.	Difference between UNION and UNION ALL?
+
+UNION	UNION ALL
+Removes duplicates	Keeps duplicates
+
+
+3.	What is INTERSECT?
+INTERSECT returns common records from both tables.
+
+
+4.	What is MINUS?
+MINUS returns records present in first table but not in second table.
+
+
+5.	What is ALTER TABLE?
+ALTER TABLE is used to modify existing table structure.
+ 
+

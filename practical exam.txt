@@ -1,0 +1,770 @@
+Enter password: ************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| company_data       |
+| information_schema |
+| it_tech            |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.09 sec)
+
+mysql> use company_data;
+Database changed
+mysql> show tables;
++------------------------+
+| Tables_in_company_data |
++------------------------+
+| company                |
+| customer               |
+| employee               |
+| product                |
+| softwareview           |
++------------------------+
+5 rows in set (0.02 sec)
+
+mysql> create database Student;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> drop database Student;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> Create database Employee;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> CREATE TABLES Employee(
+    -> emp_id INT Primary Key,
+    -> name VARCHAR(30),
+    -> dept VARCHAR(20),
+    -> salary INT,
+    -> city VARCHAR(10)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLES Employee(
+emp_id INT Primary Key,
+name VARCHAR(30),
+dept VARCHAR(20),
+sal' at line 1
+mysql> CREATE TABLE Employee(
+    -> emp_id INT Primary Key,
+    -> name VARCHAR(30),
+    -> dept VARCHAR(20),
+    -> salary INT,
+    -> city VARCHAR(10)
+    -> );
+ERROR 1050 (42S01): Table 'employee' already exists
+mysql> show tables;
++------------------------+
+| Tables_in_company_data |
++------------------------+
+| company                |
+| customer               |
+| employee               |
+| product                |
+| softwareview           |
++------------------------+
+5 rows in set (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| company_data       |
+| employee           |
+| information_schema |
+| it_tech            |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> drop database employee;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> Create database Employee;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| company_data       |
+| employee           |
+| information_schema |
+| it_tech            |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> CREATE TABLE Employee(
+    -> emp_id INT Primary Key,
+    -> name VARCHAR(30),
+    -> dept VARCHAR(20),
+    -> salary INT,
+    -> city VARCHAR(10)
+    -> );
+ERROR 1050 (42S01): Table 'employee' already exists
+mysql> use employee;
+Database changed
+mysql> CREATE TABLE Employee(
+    -> emp_id INT Primary Key,
+    -> name VARCHAR(30),
+    -> dept VARCHAR(20),
+    -> salary INT,
+    -> city VARCHAR(10)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> INSERT INTO Employee(emp_id, name, dept, salary, city)VALUES(1001,'Swapnil','IT',45000,'Sangamner'),(1002,'Yash','Comp',43000,'A.nagar'),(1003,'Sudarshan','IT',51000,'Jorve');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select *from Employee;
++--------+-----------+------+--------+-----------+
+| emp_id | name      | dept | salary | city      |
++--------+-----------+------+--------+-----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner |
+|   1002 | Yash      | Comp |  43000 | A.nagar   |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     |
++--------+-----------+------+--------+-----------+
+3 rows in set (0.04 sec)
+
+mysql> ALTER TABLE Employee Add Phone_No VARCHAR(15);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select *from Employee;
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
++--------+-----------+------+--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select *from Employee WHERE name LIKE '%S';
+Empty set (0.04 sec)
+
+mysql> select *from Employee WHERE name LIKE '%S%';
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
++--------+-----------+------+--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select *from Employee WHERE name LIKE 'S%';
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
++--------+-----------+------+--------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select *from Employee WHERE name LIKE '%S_';
++--------+------+------+--------+---------+----------+
+| emp_id | name | dept | salary | city    | Phone_No |
++--------+------+------+--------+---------+----------+
+|   1002 | Yash | Comp |  43000 | A.nagar | NULL     |
++--------+------+------+--------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> select *from Employee WHERE name Salary between 46000 to 56000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Salary between 46000 to 56000' at line 1
+mysql> select *from Employee WHERE salary between 46000 to 56000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to 56000' at line 1
+mysql> select *from Employee WHERE salary BETWEEN 46000 to 56000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to 56000' at line 1
+mysql> select *from Employee WHERE salary BETWEEN 46000 AND 56000;
++--------+-----------+------+--------+-------+----------+
+| emp_id | name      | dept | salary | city  | Phone_No |
++--------+-----------+------+--------+-------+----------+
+|   1003 | Sudarshan | IT   |  51000 | Jorve | NULL     |
++--------+-----------+------+--------+-------+----------+
+1 row in set (0.00 sec)
+
+mysql> select *from Employee WHERE dept IN('IT');
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
++--------+-----------+------+--------+-----------+----------+
+2 rows in set (0.04 sec)
+
+mysql> select *from Employee WHERE dept IN('comp');
++--------+------+------+--------+---------+----------+
+| emp_id | name | dept | salary | city    | Phone_No |
++--------+------+------+--------+---------+----------+
+|   1002 | Yash | Comp |  43000 | A.nagar | NULL     |
++--------+------+------+--------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> select *from Employee ORDER BY salary;
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
++--------+-----------+------+--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select *from Employee ORDER BY salary DESC;
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
++--------+-----------+------+--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select *from Employee ORDER BY salary ASC;
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
++--------+-----------+------+--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO Employee(emp_id, name, dept, salary, city)VALUES(1004,'Gaju','Mech',55000,'S.nagar'),(1005,'Shrawan','Comp',43000,'S.nagar'),(1006,'Aashish','IT',45000,'A.nagar');
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select *from Employee ORDER BY salary ASC;
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
+|   1005 | Shrawan   | Comp |  43000 | S.nagar   | NULL     |
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1006 | Aashish   | IT   |  45000 | A.nagar   | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
+|   1004 | Gaju      | Mech |  55000 | S.nagar   | NULL     |
++--------+-----------+------+--------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select *from Employee WHERE dept='IT';
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
+|   1006 | Aashish   | IT   |  45000 | A.nagar   | NULL     |
++--------+-----------+------+--------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select *from Employee WHERE dept='Comp';
++--------+---------+------+--------+---------+----------+
+| emp_id | name    | dept | salary | city    | Phone_No |
++--------+---------+------+--------+---------+----------+
+|   1002 | Yash    | Comp |  43000 | A.nagar | NULL     |
+|   1005 | Shrawan | Comp |  43000 | S.nagar | NULL     |
++--------+---------+------+--------+---------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select *from Employee WHERE Salary>40000;
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
+|   1004 | Gaju      | Mech |  55000 | S.nagar   | NULL     |
+|   1005 | Shrawan   | Comp |  43000 | S.nagar   | NULL     |
+|   1006 | Aashish   | IT   |  45000 | A.nagar   | NULL     |
++--------+-----------+------+--------+-----------+----------+
+6 rows in set (0.01 sec)
+
+mysql> select *from Employee WHERE Salary<=47000;
++--------+---------+------+--------+-----------+----------+
+| emp_id | name    | dept | salary | city      | Phone_No |
++--------+---------+------+--------+-----------+----------+
+|   1001 | Swapnil | IT   |  45000 | Sangamner | NULL     |
+|   1002 | Yash    | Comp |  43000 | A.nagar   | NULL     |
+|   1005 | Shrawan | Comp |  43000 | S.nagar   | NULL     |
+|   1006 | Aashish | IT   |  45000 | A.nagar   | NULL     |
++--------+---------+------+--------+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select *from Employee WHERE Salary<=47000 And dept='IT';
++--------+---------+------+--------+-----------+----------+
+| emp_id | name    | dept | salary | city      | Phone_No |
++--------+---------+------+--------+-----------+----------+
+|   1001 | Swapnil | IT   |  45000 | Sangamner | NULL     |
+|   1006 | Aashish | IT   |  45000 | A.nagar   | NULL     |
++--------+---------+------+--------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select *from Employee WHERE Salary>(SELECT Max(salary) FROM Employee);
+Empty set (0.02 sec)
+
+mysql> select *from Employee WHERE Salary>(SELECT Min(salary) FROM Employee);
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
+|   1004 | Gaju      | Mech |  55000 | S.nagar   | NULL     |
+|   1006 | Aashish   | IT   |  45000 | A.nagar   | NULL     |
++--------+-----------+------+--------+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select *from Employee WHERE Salary>=(SELECT Max(salary) FROM Employee);
++--------+------+------+--------+---------+----------+
+| emp_id | name | dept | salary | city    | Phone_No |
++--------+------+------+--------+---------+----------+
+|   1004 | Gaju | Mech |  55000 | S.nagar | NULL     |
++--------+------+------+--------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> select *From Employee;
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
+|   1004 | Gaju      | Mech |  55000 | S.nagar   | NULL     |
+|   1005 | Shrawan   | Comp |  43000 | S.nagar   | NULL     |
+|   1006 | Aashish   | IT   |  45000 | A.nagar   | NULL     |
++--------+-----------+------+--------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) AS Total_Employees;
++-----------------+
+| Total_Employees |
++-----------------+
+|               1 |
++-----------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT COUNT(*) AS Total_Salary;
++--------------+
+| Total_Salary |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUM(salary) AS Total_Salary;
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+mysql> SELECT SUM(salary) AS Total_salary;
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+mysql> SELECT SUM(salary) AS Average_salary;
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+mysql> SELECT SUM(salary) AS Average_salary FROM Employee;
++----------------+
+| Average_salary |
++----------------+
+|         282000 |
++----------------+
+1 row in set (0.04 sec)
+
+mysql> SELECT COUNT(*) AS Total_Salary FROM Employee;
++--------------+
+| Total_Salary |
++--------------+
+|            6 |
++--------------+
+1 row in set (0.05 sec)
+
+mysql> SELECT AVERAGE(*) AS Total_Salary FROM Employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) AS Total_Salary FROM Employee' at line 1
+mysql> SELECT AVERAGE(salary) AS Average_Salary FROM Employee;
+ERROR 1305 (42000): FUNCTION employee.AVERAGE does not exist
+mysql> SELECT MAX(salary) AS Average_Salary FROM Employee;
++----------------+
+| Average_Salary |
++----------------+
+|          55000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(salary) AS MINIMUM_Salary FROM Employee;
++----------------+
+| MINIMUM_Salary |
++----------------+
+|          43000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(salary) AS AVERAGE_Salary FROM Employee;
++----------------+
+| AVERAGE_Salary |
++----------------+
+|     47000.0000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *FROM Employee;
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
+|   1004 | Gaju      | Mech |  55000 | S.nagar   | NULL     |
+|   1005 | Shrawan   | Comp |  43000 | S.nagar   | NULL     |
+|   1006 | Aashish   | IT   |  45000 | A.nagar   | NULL     |
++--------+-----------+------+--------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT dept, COUNT(*) AS Emp_Count, SUM(salary) AS Dept_Total_Sal FROM Employee Group BY dept;
++------+-----------+----------------+
+| dept | Emp_Count | Dept_Total_Sal |
++------+-----------+----------------+
+| IT   |         3 |         141000 |
+| Comp |         2 |          86000 |
+| Mech |         1 |          55000 |
++------+-----------+----------------+
+3 rows in set (0.04 sec)
+
+mysql> SELECT dept, COUNT(*) AS Emp_Count FROM Employee Group BY dept;
++------+-----------+
+| dept | Emp_Count |
++------+-----------+
+| IT   |         3 |
+| Comp |         2 |
+| Mech |         1 |
++------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT dept, COUNT(*) AS Emp_Count FROM Employee HAVING SALARY>45000;
+ERROR 1054 (42S22): Unknown column 'SALARY' in 'having clause'
+mysql> SELECT dept, COUNT(*) AS Emp_Count FROM Employee HAVING SUM(salary)>45000;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'employee.Employee.dept'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT dept, SUM(salary) AS Total_Salary FROM Employee HAVING SUM(salary)>45000;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'employee.Employee.dept'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT dept, COUNT(*) AS Emp_Count, SUM(salary) AS Dept_Total_Sal FROM Employee Group BY dept Having Sum(salary)>45000;
++------+-----------+----------------+
+| dept | Emp_Count | Dept_Total_Sal |
++------+-----------+----------------+
+| IT   |         3 |         141000 |
+| Comp |         2 |          86000 |
+| Mech |         1 |          55000 |
++------+-----------+----------------+
+3 rows in set (0.04 sec)
+
+mysql> SELECT dept, COUNT(*) AS Emp_Count, SUM(salary) AS Dept_Total_Sal FROM Employee Group BY dept Having Sum(salary)<65000;
++------+-----------+----------------+
+| dept | Emp_Count | Dept_Total_Sal |
++------+-----------+----------------+
+| Mech |         1 |          55000 |
++------+-----------+----------------+
+1 row in set (0.00 sec)
+
+mysql>  select *from Employee;
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
+|   1004 | Gaju      | Mech |  55000 | S.nagar   | NULL     |
+|   1005 | Shrawan   | Comp |  43000 | S.nagar   | NULL     |
+|   1006 | Aashish   | IT   |  45000 | A.nagar   | NULL     |
++--------+-----------+------+--------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE VIEW Emp_Dept AS SELECT name,dept,salary FROM Employee;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select *from Emp_Dept;
++-----------+------+--------+
+| name      | dept | salary |
++-----------+------+--------+
+| Swapnil   | IT   |  45000 |
+| Yash      | Comp |  43000 |
+| Sudarshan | IT   |  51000 |
+| Gaju      | Mech |  55000 |
+| Shrawan   | Comp |  43000 |
+| Aashish   | IT   |  45000 |
++-----------+------+--------+
+6 rows in set (0.04 sec)
+
+mysql> select *from Emp_Dept_View;
+ERROR 1146 (42S02): Table 'employee.emp_dept_view' doesn't exist
+mysql> select *from Emp_Dept ORDER BY name asc;
++-----------+------+--------+
+| name      | dept | salary |
++-----------+------+--------+
+| Aashish   | IT   |  45000 |
+| Gaju      | Mech |  55000 |
+| Shrawan   | Comp |  43000 |
+| Sudarshan | IT   |  51000 |
+| Swapnil   | IT   |  45000 |
+| Yash      | Comp |  43000 |
++-----------+------+--------+
+6 rows in set (0.04 sec)
+
+mysql> select *from Emp_Dept ORDER BY name desc;
++-----------+------+--------+
+| name      | dept | salary |
++-----------+------+--------+
+| Yash      | Comp |  43000 |
+| Swapnil   | IT   |  45000 |
+| Sudarshan | IT   |  51000 |
+| Shrawan   | Comp |  43000 |
+| Gaju      | Mech |  55000 |
+| Aashish   | IT   |  45000 |
++-----------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE TABLE Department(
+    -> dept_id int,
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> CREATE TABLE Department(
+    -> dept_id int PRIMARY KEY,
+    -> dept_name VARCHAR(20) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO Department(dept_id, dept_name)values(10,'IT'),(11,'Comp'),(12,'Mech');
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE Emp_New(
+    -> emp_id INT PRIMARY KEY,
+    -> name VARCHAR(10),
+    -> d_id INT,
+    -> FOREIGN KEY (d_id) REFERENCES Department(dept_id)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> INSERT INTO Emp_New VALUES (1,'Swapnil',10);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select *from Department;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|      10 | IT        |
+|      11 | Comp      |
+|      12 | Mech      |
++---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select *from Department;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|      10 | IT        |
+|      11 | Comp      |
+|      12 | Mech      |
++---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select *from Emp_New;
++--------+---------+------+
+| emp_id | name    | d_id |
++--------+---------+------+
+|      1 | Swapnil |   10 |
++--------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE Student(
+    -> Std_id INTPRIMARY KEY,
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INTPRIMARY KEY,' at line 2
+mysql> CREATE TABLE Student(
+    -> Std_id INT PRIMARY KEY,
+    -> Std_Name VARCHAR(20) NOT NULL,
+    -> Std_Email VARCHAR(25) UNIQUE,
+    -> Std_Age INT CHECK(age >=18),
+    -> Std_City VARCHAR(30) DEFAULT 'Pune',
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 7
+mysql> CREATE TABLE Student(
+    -> Std_id INT PRIMARY KEY,
+    -> Std_Name VARCHAR(20) NOT NULL,
+    -> Std_Email VARCHAR(25) UNIQUE,
+    -> Std_Age INT CHECK(age >=18),
+    -> Std_City VARCHAR(30) DEFAULT 'Pune'
+    -> );
+ERROR 3813 (HY000): Column check constraint 'student_chk_1' references other column.
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| department         |
+| emp_dept           |
+| emp_new            |
+| employee           |
++--------------------+
+4 rows in set (0.05 sec)
+
+mysql> CREATE TABLE Student(
+    -> Std_id INT PRIMARY KEY,
+    -> Std_Name VARCHAR(20) NOT NULL,
+    -> Std_Email VARCHAR(25) UNIQUE,
+    -> Std_Age INT CHECK(Std_Age >=18),
+    -> Std_City VARCHAR(30) DEFAULT 'Pune'
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> INSERT INTO Student(Std_id, Std_Name, Std_Email,Std_Age, Std_City) VALUES(11,'swapnil','swapnil@123',19);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO Student(Std_id, Std_Name, Std_Email,Std_Age) VALUES(11,'swapnil','swapnil@123',19);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT *FROM Student;
++--------+----------+-------------+---------+----------+
+| Std_id | Std_Name | Std_Email   | Std_Age | Std_City |
++--------+----------+-------------+---------+----------+
+|     11 | swapnil  | swapnil@123 |      19 | Pune     |
++--------+----------+-------------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO Student(Std_id, Std_Name, Std_Email,Std_Age) VALUES(12,'swapnil','swapnil@123',14);
+ERROR 3819 (HY000): Check constraint 'student_chk_1' is violated.
+mysql> select *from Employee;
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | NULL     |
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
+|   1004 | Gaju      | Mech |  55000 | S.nagar   | NULL     |
+|   1005 | Shrawan   | Comp |  43000 | S.nagar   | NULL     |
+|   1006 | Aashish   | IT   |  45000 | A.nagar   | NULL     |
++--------+-----------+------+--------+-----------+----------+
+6 rows in set (0.01 sec)
+
+mysql> UPDATE Employee SET Phone_No = 123 WHRE emp_id=1001;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHRE emp_id=1001' at line 1
+mysql> UPDATE Employee SET Phone_No = 123 WHERE emp_id=1001;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from Employee;
++--------+-----------+------+--------+-----------+----------+
+| emp_id | name      | dept | salary | city      | Phone_No |
++--------+-----------+------+--------+-----------+----------+
+|   1001 | Swapnil   | IT   |  45000 | Sangamner | 123      |
+|   1002 | Yash      | Comp |  43000 | A.nagar   | NULL     |
+|   1003 | Sudarshan | IT   |  51000 | Jorve     | NULL     |
+|   1004 | Gaju      | Mech |  55000 | S.nagar   | NULL     |
+|   1005 | Shrawan   | Comp |  43000 | S.nagar   | NULL     |
+|   1006 | Aashish   | IT   |  45000 | A.nagar   | NULL     |
++--------+-----------+------+--------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> DELETE FROM Employee WHERE emp_id=1003;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> CREATE DATABASE IT_DEPT;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| company_data       |
+| employee           |
+| information_schema |
+| it_dept            |
+| it_tech            |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+8 rows in set (0.04 sec)
+
+mysql> USE IT_DEPT;
+Database changed
+mysql> CREATE TABLE CourseA(
+    -> Roll_No INT PRIMARY KEY,
+    -> Name VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> CREATE TABLE CourseB(
+    -> Roll_No INT PRIMARY KEY,
+    -> Name VARCHAR(10)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO CourseA(Roll_No,Name) VALUES(1,'SWAPNIL'),(2,'SUDARSHAN'),(3,'YASH')
+    -> ;
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO CourseB(Roll_No,Name) VALUES(3,'YASH'),(4,'SHRAWAN'),(5,'AASHISH');
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT *FROM CourseA UNION SELECT *FROM CourseB;
++---------+-----------+
+| Roll_No | Name      |
++---------+-----------+
+|       1 | SWAPNIL   |
+|       2 | SUDARSHAN |
+|       3 | YASH      |
+|       4 | SHRAWAN   |
+|       5 | AASHISH   |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *FROM CourseA UNION ALL SELECT *FROM CourseB;
++---------+-----------+
+| Roll_No | Name      |
++---------+-----------+
+|       1 | SWAPNIL   |
+|       2 | SUDARSHAN |
+|       3 | YASH      |
+|       3 | YASH      |
+|       4 | SHRAWAN   |
+|       5 | AASHISH   |
++---------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT *FROM CourseB UNION ALL SELECT *FROM CourseA;
++---------+-----------+
+| Roll_No | Name      |
++---------+-----------+
+|       3 | YASH      |
+|       4 | SHRAWAN   |
+|       5 | AASHISH   |
+|       1 | SWAPNIL   |
+|       2 | SUDARSHAN |
+|       3 | YASH      |
++---------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT *FROM CourseB UNION SELECT *FROM CourseA;
++---------+-----------+
+| Roll_No | Name      |
++---------+-----------+
+|       3 | YASH      |
+|       4 | SHRAWAN   |
+|       5 | AASHISH   |
+|       1 | SWAPNIL   |
+|       2 | SUDARSHAN |
++---------+-----------+
+5 rows in set (0.00 sec)
